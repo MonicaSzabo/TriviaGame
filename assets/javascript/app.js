@@ -1,5 +1,27 @@
 $(document).ready(function() {
-	var qaArray;
+	var qaArray, right, wrong, unanswered;
+
+	var questionTimer = {
+		time: 30,
+
+		reset: function () {
+        	questionTimer.time = 30;
+    	},
+   		start: function(){
+        	counter = setInterval(questionTimer.count, 1000);
+    	},
+    	stop: function(){
+        	clearInterval(counter);
+    	},
+    	count: function(){
+	        questionTimer.time--;
+	        $('#time').html("Time Remaining: " + questionTimer.time);
+
+	        if(questionTimer.time == 0) {
+	        	questionTimer.stop();
+	        }
+    	},
+	}
 
 	function varSet() {
 		qaArray = [{
@@ -54,13 +76,29 @@ $(document).ready(function() {
 			correctanswer: 2
 		}]
 
+		right = 0;
+		wrong = 0;
+		unanswered = 0;
 	}
 
+	function askQuestions(i) {
+		$('#question').html(qaArray[i].question);
+		$('#answer0').html(qaArray[i].answers[0]);
+		$('#answer1').html(qaArray[i].answers[1]);
+		$('#answer2').html(qaArray[i].answers[2]);
+		$('#answer3').html(qaArray[i].answers[3]);
 
-
-
+		alert("This got here");
+	}
 
 	varSet();
-	console.log(qaArray[0].question)
-	
+
+	questionTimer.start();
+
+	var thirtySecs;
+
+	for(var i = 0; i < qaArray.length; i++) {
+		thirtySecs = setTimeout(askQuestions(i), 30 * 1000);
+	}
+
 });
