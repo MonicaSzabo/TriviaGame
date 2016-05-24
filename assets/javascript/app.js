@@ -81,14 +81,24 @@ $(document).ready(function() {
 		unanswered = 0;
 
 		currentIndex = 0;
+
+		$('#question').html("<button class='btn' id='start'>Start the game</button>")
+		$('#answer0').hide();
+		$('#answer1').hide();
+		$('#answer2').hide();
+		$('#answer3').hide();
+
+		$('#start').on("click", function() {
+			advance();
+		});
 	}
 
 	function askQuestions(currentIndex) {
 		$('#question').html(qaArray[currentIndex].question);
-		$('#answer0').html(qaArray[currentIndex].answers[0]);
-		$('#answer1').html(qaArray[currentIndex].answers[1]);
-		$('#answer2').html(qaArray[currentIndex].answers[2]);
-		$('#answer3').html(qaArray[currentIndex].answers[3]);
+		$('#answer0').show().html(qaArray[currentIndex].answers[0]);
+		$('#answer1').show().html(qaArray[currentIndex].answers[1]);
+		$('#answer2').show().html(qaArray[currentIndex].answers[2]);
+		$('#answer3').show().html(qaArray[currentIndex].answers[3]);
 
 		$('.btn').on("click", function() {
 			if($(this).attr('value') == qaArray[currentIndex].correctanswer) {
@@ -122,11 +132,17 @@ $(document).ready(function() {
 			"<br><img src=" + qaArray[currentIndex].pic + ">");
 	}
 
+	function advance() {
+		askQuestions(0);
+	}
+
 
 
 	varSet();
 
-	var thirty = setTimeout(testing, 5 * 1000);
+	var thirty = setTimeout(function() {
+		askQuestions(0);
+	}, 30 * 1000);
 
 	function testing() {
         alert("testing");
