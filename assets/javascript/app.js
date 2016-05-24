@@ -1,27 +1,27 @@
 $(document).ready(function() {
-	var qaArray, right, wrong, unanswered;
+	var qaArray, right, wrong, unanswered, currentIndex;
 
-	var questionTimer = {
-		time: 30,
+	// var questionTimer = {
+	// 	time: 30,
 
-		reset: function () {
-        	questionTimer.time = 30;
-    	},
-   		start: function(){
-        	counter = setInterval(questionTimer.count, 1000);
-    	},
-    	stop: function(){
-        	clearInterval(counter);
-    	},
-    	count: function(){
-	        questionTimer.time--;
-	        $('#time').html("Time Remaining: " + questionTimer.time);
+	// 	reset: function () {
+ //        	questionTimer.time = 30;
+ //    	},
+ //   		start: function(){
+ //        	counter = setInterval(questionTimer.count, 1000);
+ //    	},
+ //    	stop: function(){
+ //        	clearInterval(counter);
+ //    	},
+ //    	count: function(){
+	//         questionTimer.time--;
+	//         $('#time').html("Time Remaining: " + questionTimer.time);
 
-	        if(questionTimer.time == 0) {
-	        	questionTimer.stop();
-	        }
-    	},
-	}
+	//         if(questionTimer.time == 0) {
+	//         	questionTimer.stop();
+	//         }
+ //    	},
+	// }
 
 	function varSet() {
 		qaArray = [{
@@ -79,26 +79,57 @@ $(document).ready(function() {
 		right = 0;
 		wrong = 0;
 		unanswered = 0;
+
+		currentIndex = 0;
 	}
 
-	function askQuestions(i) {
-		$('#question').html(qaArray[i].question);
-		$('#answer0').html(qaArray[i].answers[0]);
-		$('#answer1').html(qaArray[i].answers[1]);
-		$('#answer2').html(qaArray[i].answers[2]);
-		$('#answer3').html(qaArray[i].answers[3]);
+	function askQuestions(currentIndex) {
+		$('#question').html(qaArray[currentIndex].question);
+		$('#answer0').html(qaArray[currentIndex].answers[0]);
+		$('#answer1').html(qaArray[currentIndex].answers[1]);
+		$('#answer2').html(qaArray[currentIndex].answers[2]);
+		$('#answer3').html(qaArray[currentIndex].answers[3]);
 
-		alert("This got here");
+		$('.btn').on("click", function() {
+			if($(this).attr('value') == qaArray[currentIndex].correctanswer) {
+				right++;
+				rightAnswer(currentIndex);
+			}
+			else {
+				wrong++;
+				wrongAnswer(currentIndex);
+			}
+		});
+
 	}
+
+	function rightAnswer(currentIndex) {
+		$('#question').html("<h2>Correct!</h2>");
+		$('#answer0').hide();
+		$('#answer1').hide();
+		$('#answer2').hide();
+		$('#answer3').hide();
+		$('#gifHolder').html("<img src=" + qaArray[currentIndex].pic + ">");
+	}
+
+	function wrongAnswer(currentIndex) {
+		$('#question').html("<h2>Nope!</h2>");
+		$('#answer0').hide();
+		$('#answer1').hide();
+		$('#answer2').hide();
+		$('#answer3').hide();
+		$('#gifHolder').html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
+			"<br><img src=" + qaArray[currentIndex].pic + ">");
+	}
+
+
 
 	varSet();
 
-	questionTimer.start();
+	var thirty = setTimeout(testing, 5 * 1000);
 
-	var thirtySecs;
-
-	for(var i = 0; i < qaArray.length; i++) {
-		thirtySecs = setTimeout(askQuestions(i), 30 * 1000);
-	}
+	function testing() {
+        alert("testing");
+    }
 
 });
