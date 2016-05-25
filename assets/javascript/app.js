@@ -1,27 +1,28 @@
 $(document).ready(function() {
-	var qaArray, right, wrong, unanswered, currentIndex;
+	var qaArray, right, wrong, unanswered, currentIndex, timeIsUp;
 
-	// var questionTimer = {
-	// 	time: 30,
+	var questionTimer = {
+		time: 30,
 
-	// 	reset: function () {
- //        	questionTimer.time = 30;
- //    	},
- //   		start: function(){
- //        	counter = setInterval(questionTimer.count, 1000);
- //    	},
- //    	stop: function(){
- //        	clearInterval(counter);
- //    	},
- //    	count: function(){
-	//         questionTimer.time--;
-	//         $('#time').html("Time Remaining: " + questionTimer.time);
+		reset: function () {
+        	questionTimer.time = 30;
+    	},
+   		start: function(){
+   			$('#time').html("Time Remaining: " + questionTimer.time);
+        	counter = setInterval(questionTimer.count, 1000);
+    	},
+    	stop: function(){
+        	clearInterval(counter);
+    	},
+    	count: function(){
+   	        questionTimer.time--;
+	        $('#time').html("Time Remaining: " + questionTimer.time);
 
-	//         if(questionTimer.time == 0) {
-	//         	questionTimer.stop();
-	//         }
- //    	},
-	// }
+	        if(questionTimer.time == 0) {
+	        	questionTimer.stop();
+	        }
+    	},
+	}
 
 	function varSet() {
 		qaArray = [{
@@ -45,7 +46,7 @@ $(document).ready(function() {
 			pic: 'assets/images/drhorrible.gif',
 			correctanswer: 3
 		}, {
-			question: "Which Pixar movie did Joss Whedon completely rewrite?",
+			question: "Which Pixar movie did Joss Whedon rewrite?",
 			answers: ["Toy Story", "Finding Nemo", "Monsters, Inc", "A Bug’s Life"],
 			pic: 'assets/images/toystory.gif',
 			correctanswer: 0
@@ -80,72 +81,102 @@ $(document).ready(function() {
 		wrong = 0;
 		unanswered = 0;
 
-		currentIndex = 0;
+		currentIndex = -1;
 
 		$('#question').html("<button class='btn' id='start'>Start the game</button>")
-		$('#answer0').hide();
-		$('#answer1').hide();
-		$('#answer2').hide();
-		$('#answer3').hide();
+		$('#answer0, #answer1, #answer2, #answer3').hide();
 
 		$('#start').on("click", function() {
 			advance();
 		});
 	}
 
-	function askQuestions(currentIndex) {
+	function askQuestions() {
+		questionTimer.start();
 		$('#question').html(qaArray[currentIndex].question);
 		$('#answer0').show().html(qaArray[currentIndex].answers[0]);
 		$('#answer1').show().html(qaArray[currentIndex].answers[1]);
 		$('#answer2').show().html(qaArray[currentIndex].answers[2]);
 		$('#answer3').show().html(qaArray[currentIndex].answers[3]);
+		$('#gifHolder').hide();
 
 		$('.btn').on("click", function() {
 			if($(this).attr('value') == qaArray[currentIndex].correctanswer) {
-				right++;
-				rightAnswer(currentIndex);
+				rightAnswer();
 			}
 			else {
-				wrong++;
-				wrongAnswer(currentIndex);
+				wrongAnswer();
 			}
 		});
-
 	}
 
-	function rightAnswer(currentIndex) {
+	function rightAnswer() {
+		clearTimeout(timeIsUp);
+		right++;
+		questionTimer.stop();
+		questionTimer.reset();
+		$('#time').html("");
 		$('#question').html("<h2>Correct!</h2>");
-		$('#answer0').hide();
-		$('#answer1').hide();
-		$('#answer2').hide();
-		$('#answer3').hide();
-		$('#gifHolder').html("<img src=" + qaArray[currentIndex].pic + ">");
+		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#gifHolder').show().html("<img src=" + qaArray[currentIndex].pic + ">");
+
+		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
 
-	function wrongAnswer(currentIndex) {
+	function wrongAnswer() {
+		clearTimeout(timeIsUp);
+		wrong++;
+		questionTimer.stop();
+		questionTimer.reset();
+		$('#time').html("");
 		$('#question').html("<h2>Nope!</h2>");
-		$('#answer0').hide();
-		$('#answer1').hide();
-		$('#answer2').hide();
-		$('#answer3').hide();
-		$('#gifHolder').html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
+		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
 			"<br><img src=" + qaArray[currentIndex].pic + ">");
+
+		timeIsUp = setTimeout(advance, 5 * 1000);
+	}
+
+	function timesUp() {
+		clearTimeout(timeIsUp);
+		unanswered++;
+		questionTimer.stop();
+		questionTimer.reset();
+		$('#time').html("");
+		$('#question').html("<h2>Time's Up!</h2>");
+		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
+			"<br><img src=" + qaArray[currentIndex].pic + ">");
+
+		timeIsUp = setTimeout(advance, 5 * 1000);
+	}
+
+	function endScreen() {
+		questionTimer.stop();
+		questionTimer.reset();
+		$('#time').html("<h2>Good job!</h2>");
+		$('#question').html("Your results <br><br>Right: " + right + "<br>Wrong: " + wrong + "<br>Not Answered: " + unanswered);
+
+		$('#gifHolder').html("<button class='btn' id='playagain'>Play again?</button>")
+
+		$('#playagain').on("click", function() {
+			varSet();
+			advance();
+		});
 	}
 
 	function advance() {
-		askQuestions(0);
+		currentIndex++;
+
+		if(currentIndex < qaArray.length) {
+			askQuestions();
+			timeIsUp = setTimeout(timesUp, 10 * 1000);
+		} else {
+			endScreen();
+		}
+		
 	}
 
-
-
 	varSet();
-
-	var thirty = setTimeout(function() {
-		askQuestions(0);
-	}, 30 * 1000);
-
-	function testing() {
-        alert("testing");
-    }
 
 });
