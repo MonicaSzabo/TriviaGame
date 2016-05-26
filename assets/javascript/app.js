@@ -81,9 +81,9 @@ $(document).ready(function() {
 		wrong = 0;
 		unanswered = 0;
 
-		currentIndex = -1;
+		currentIndex = -1;	//Starts at -1 because advance automatically increases it by 1 so it will start at 0
 
-		$('#question').html("<button class='btn' id='start'>Start the game</button>")
+		$('#question').html("<button class='btn' id='start'>Start</button>")
 		$('#answer0, #answer1, #answer2, #answer3').hide();
 
 		$('#start').on("click", function() {
@@ -92,6 +92,7 @@ $(document).ready(function() {
 	}
 
 	function askQuestions() {
+		console.log("top of askQ: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 		questionTimer.start();
 		$('#question').html(qaArray[currentIndex].question);
 		$('#answer0').show().html(qaArray[currentIndex].answers[0]);
@@ -102,17 +103,24 @@ $(document).ready(function() {
 
 		$('.btn').on("click", function() {
 			if($(this).attr('value') == qaArray[currentIndex].correctanswer) {
+				
+				console.log($(this).attr('value'));
+				console.log(qaArray[currentIndex].correctanswer);
 				rightAnswer();
+				console.log("if click right: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 			}
 			else {
 				wrongAnswer();
+				console.log("else statement: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 			}
 		});
 	}
 
 	function rightAnswer() {
+		console.log("top of rightanswer: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 		clearTimeout(timeIsUp);
-		right++;
+		function addtoRight() { right++; }
+		addtoRight();
 		questionTimer.stop();
 		questionTimer.reset();
 		$('#time').html("");
@@ -152,8 +160,6 @@ $(document).ready(function() {
 	}
 
 	function endScreen() {
-		questionTimer.stop();
-		questionTimer.reset();
 		$('#time').html("<h2>Good job!</h2>");
 		$('#question').html("Your results <br><br>Right: " + right + "<br>Wrong: " + wrong + "<br>Not Answered: " + unanswered);
 
@@ -170,7 +176,7 @@ $(document).ready(function() {
 
 		if(currentIndex < qaArray.length) {
 			askQuestions();
-			timeIsUp = setTimeout(timesUp, 10 * 1000);
+			timeIsUp = setTimeout(timesUp, 30 * 1000);
 		} else {
 			endScreen();
 		}
