@@ -84,7 +84,7 @@ $(document).ready(function() {
 		currentIndex = -1;	//Starts at -1 because advance automatically increases it by 1 so it will start at 0
 
 		$('#question').html("<button class='btn' id='start'>Start</button>")
-		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 
 		$('#start').on("click", function() {
 			advance();
@@ -98,7 +98,7 @@ $(document).ready(function() {
 		$('#answer1').show().html(qaArray[currentIndex].answers[1]);
 		$('#answer2').show().html(qaArray[currentIndex].answers[2]);
 		$('#answer3').show().html(qaArray[currentIndex].answers[3]);
-		$('#gifHolder').hide();
+		$('#gifHolder').hide().off('click');
 
 		onClickAnswer();
 	}
