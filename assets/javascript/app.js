@@ -92,7 +92,6 @@ $(document).ready(function() {
 	}
 
 	function askQuestions() {
-		console.log("top of askQ: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 		questionTimer.start();
 		$('#question').html(qaArray[currentIndex].question);
 		$('#answer0').show().html(qaArray[currentIndex].answers[0]);
@@ -101,31 +100,29 @@ $(document).ready(function() {
 		$('#answer3').show().html(qaArray[currentIndex].answers[3]);
 		$('#gifHolder').hide();
 
+		onClickAnswer();
+	}
+
+	function onClickAnswer() {
 		$('.btn').on("click", function() {
-			if($(this).attr('value') == qaArray[currentIndex].correctanswer) {
-				
-				console.log($(this).attr('value'));
-				console.log(qaArray[currentIndex].correctanswer);
+			var buttonClick = parseInt($(this).attr('value'));
+			if(buttonClick === qaArray[currentIndex].correctanswer) {
 				rightAnswer();
-				console.log("if click right: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 			}
 			else {
 				wrongAnswer();
-				console.log("else statement: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 			}
 		});
 	}
 
 	function rightAnswer() {
-		console.log("top of rightanswer: right: " + right + " wrong: " + wrong + " unanswered: " + unanswered);
 		clearTimeout(timeIsUp);
-		function addtoRight() { right++; }
-		addtoRight();
+		right++;
 		questionTimer.stop();
 		questionTimer.reset();
 		$('#time').html("");
 		$('#question').html("<h2>Correct!</h2>");
-		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("<img src=" + qaArray[currentIndex].pic + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
@@ -138,7 +135,7 @@ $(document).ready(function() {
 		questionTimer.reset();
 		$('#time').html("");
 		$('#question').html("<h2>Nope!</h2>");
-		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
 			"<br><img src=" + qaArray[currentIndex].pic + ">");
 
@@ -152,7 +149,7 @@ $(document).ready(function() {
 		questionTimer.reset();
 		$('#time').html("");
 		$('#question').html("<h2>Time's Up!</h2>");
-		$('#answer0, #answer1, #answer2, #answer3').hide();
+		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
 			"<br><img src=" + qaArray[currentIndex].pic + ">");
 
