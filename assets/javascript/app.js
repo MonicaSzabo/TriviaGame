@@ -8,7 +8,7 @@ $(document).ready(function() {
         	questionTimer.time = 30;
     	},
    		start: function(){
-   			$('#time').html("Time Remaining: " + questionTimer.time);
+   			$('#time').html("Time Remaining: " + questionTimer.time).css("color", "#BCFEFF");;
         	counter = setInterval(questionTimer.count, 1000);
     	},
     	stop: function(){
@@ -17,6 +17,14 @@ $(document).ready(function() {
     	count: function(){
    	        questionTimer.time--;
 	        $('#time').html("Time Remaining: " + questionTimer.time);
+
+	        if(questionTimer.time < 6) {	//At 5 text will start flashing
+	        	if(questionTimer.time % 2 == 0) {
+	        		$('#time').css("color", "#EBFFE3");	//Whiteyellow
+	        	} else {
+	        		$('#time').css("color", "#E8867D");	//Redpink
+	        	}
+	        }
 
 	        if(questionTimer.time == 0) {
 	        	questionTimer.stop();
@@ -62,7 +70,7 @@ $(document).ready(function() {
 			correctanswer: 1
 		}, {
 			question: "What is the <q>documented</q> reason Fox cancelled <em>Firefly</em>?",
-			answers: ["Mal shot too many people", "It was too dark", "It’s ratings", "Fox executives don’t know good shows when they see them"],
+			answers: ["Mal shot too many people", "It was too dark", "It’s ratings", "Fox executives don’t know<br>what a good show is"],
 			pic: 'assets/images/firefly.gif',
 			correctanswer: 1
 		}, {
@@ -123,7 +131,7 @@ $(document).ready(function() {
 		$('#time').html("");
 		$('#question').html("<h2>Correct!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
-		$('#gifHolder').show().html("<img src=" + qaArray[currentIndex].pic + ">");
+		$('#gifHolder').show().html("<img class='gifs' src=" + qaArray[currentIndex].pic + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
@@ -137,7 +145,7 @@ $(document).ready(function() {
 		$('#question').html("<h2>Nope!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
-			"<br><img src=" + qaArray[currentIndex].pic + ">");
+			"<br><img class='gifs' src=" + qaArray[currentIndex].pic + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
@@ -151,7 +159,7 @@ $(document).ready(function() {
 		$('#question').html("<h2>Time's Up!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
-			"<br><img src=" + qaArray[currentIndex].pic + ">");
+			"<br><img class='gifs' src=" + qaArray[currentIndex].pic + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
