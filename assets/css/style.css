@@ -23,3 +23,12 @@ h1 {
 #question {
 	font-size: 24px;
 }
+
+.gifs {
+	max-width: 450px;
+	max-height: 450px;
+}
+
+#gifHolder {
+	margin-top: -60px;
+}

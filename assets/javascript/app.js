@@ -25,10 +25,6 @@ $(document).ready(function() {
 	        		$('#time').css("color", "#E8867D");	//Redpink
 	        	}
 	        }
-
-	        if(questionTimer.time == 0) {
-	        	questionTimer.stop();
-	        }
     	},
 	}
 
@@ -128,7 +124,7 @@ $(document).ready(function() {
 		right++;
 		questionTimer.stop();
 		questionTimer.reset();
-		$('#time').html("");
+		$('#time').empty();
 		$('#question').html("<h2>Correct!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("<img class='gifs' src=" + qaArray[currentIndex].pic + ">");
@@ -141,7 +137,7 @@ $(document).ready(function() {
 		wrong++;
 		questionTimer.stop();
 		questionTimer.reset();
-		$('#time').html("");
+		$('#time').empty();
 		$('#question').html("<h2>Nope!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
@@ -155,7 +151,7 @@ $(document).ready(function() {
 		unanswered++;
 		questionTimer.stop();
 		questionTimer.reset();
-		$('#time').html("");
+		$('#time').empty();
 		$('#question').html("<h2>Time's Up!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
@@ -185,8 +181,8 @@ $(document).ready(function() {
 		} else {
 			endScreen();
 		}
-		
 	}
+
 
 	varSet();
 
