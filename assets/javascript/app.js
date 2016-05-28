@@ -68,12 +68,14 @@ $(document).ready(function() {
 		}, {
 			question: "Which founding Avenger member was not in <em>The Avengers</em> (2012)?",
 			answers: ["Thor", "Ant-Man", "Hawkeye", "Black Widow"],
-			pic: 'assets/images/avengers.gif',
+			picright: 'assets/images/avengersright.gif',
+			picwrong: 'assets/images/avengerswrong.gif',
 			correctanswer: 1
 		}, {
 			question: "What is the <q>documented</q> reason Fox cancelled <em>Firefly</em>?",
 			answers: ["Mal shot too many people", "It was too dark", "It’s ratings", "Fox executives don’t know<br>what a good show is"],
-			pic: 'assets/images/firefly.gif',
+			picright: 'assets/images/fireflyright.gif',
+			picwrong: 'assets/images/fireflywrong.gif',
 			correctanswer: 1
 		}, {
 			question: "Which Shakespeare play did Joss Whedon direct and produce in 2012?",
@@ -84,7 +86,8 @@ $(document).ready(function() {
 		}, {
 			question: "How many times did Buffy die in <em>Buffy the Vampire Slayer</em>?",
 			answers: ["Never", "Once", "Twice", "Three Times"],
-			pic: 'assets/images/buffy.gif',
+			picright: 'assets/images/buffyright.gif',
+			picwrong: 'assets/images/buffywrong.gif',
 			correctanswer: 2
 		}]
 
@@ -136,7 +139,7 @@ $(document).ready(function() {
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("<img class='gifs' src=" + qaArray[currentIndex].picright + ">");
 
-		timeIsUp = setTimeout(advance, 5 * 1000);
+		timeIsUp = setTimeout(advance, 4 * 1000);
 	}
 
 	function wrongAnswer() {
@@ -150,7 +153,7 @@ $(document).ready(function() {
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
 			"<br><img class='gifs' src=" + qaArray[currentIndex].picwrong + ">");
 
-		timeIsUp = setTimeout(advance, 5 * 1000);
+		timeIsUp = setTimeout(advance, 4 * 1000);
 	}
 
 	function timesUp() {
@@ -164,7 +167,7 @@ $(document).ready(function() {
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
 			"<br><img class='gifs' src=" + qaArray[currentIndex].picwrong + ">");
 
-		timeIsUp = setTimeout(advance, 5 * 1000);
+		timeIsUp = setTimeout(advance, 4 * 1000);
 	}
 
 	function endScreen() {
