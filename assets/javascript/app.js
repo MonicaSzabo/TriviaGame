@@ -32,32 +32,38 @@ $(document).ready(function() {
 		qaArray = [{
 			question: "What was Joss Whedon's first writing job?",
 			answers: ["Growing Pains", "Clarissa Explains It All", "Roseanne", "The Wonder Years"],
-			pic: 'assets/images/roseanne.gif',
+			picright: 'assets/images/roseanneright.gif',
+			picwrong: 'assets/images/roseannewrong.gif',
 			correctanswer: 2
 		}, {
 			question: "Which is NOT a potential monster on the <em>Cabin in the Woods</em> whiteboard?",
 			answers: ["Kevin", "Sugarplum Fairy", "Vampires", "Giant Spiders"],
-			pic: 'assets/images/cabininthewoods.gif',
+			picright: 'assets/images/cabininthewoodsright.gif',
+			picwrong: 'assets/images/cabininthewoodswrong.gif',
 			correctanswer: 3
 		}, {
 			question: "What is the standard length of a Doll's contract in <em>Dollhouse</em>?",
 			answers: ["10 years", "5 years", "2 years", "1 year"],
-			pic: 'assets/images/dollhouse.gif',
+			picright: 'assets/images/dollhouseright.gif',
+			picwrong: 'assets/images/dollhousewrong.gif',
 			correctanswer: 1
 		}, {
 			question: "Which of Joss Whedon’s works garnered him his first-ever Emmy win?",
 			answers: ["Buffy the Vampire Slayer", "Firefly", "Dollhouse", "Dr. Horrible’s Sing-Along Blog"],
-			pic: 'assets/images/drhorrible.gif',
+			picright: 'assets/images/drhorribleright.gif',
+			picwrong: 'assets/images/drhorriblewrong.gif',
 			correctanswer: 3
 		}, {
 			question: "Which Pixar movie did Joss Whedon rewrite?",
 			answers: ["Toy Story", "Finding Nemo", "Monsters, Inc", "A Bug’s Life"],
-			pic: 'assets/images/toystory.gif',
+			picright: 'assets/images/toystoryright.gif',
+			picwrong: 'assets/images/toystorywrong.gif',
 			correctanswer: 0
 		}, {
 			question: "At the series conclusion, how old is Angel in <em>Angel</em>?",
 			answers: ["32 years old", "188 years old", "251 years old", "363 years old"],
-			pic: 'assets/images/angel.gif',
+			picright: 'assets/images/angelright.gif',
+			picwrong: 'assets/images/angelwrong.gif',
 			correctanswer: 2
 		}, {
 			question: "Which founding Avenger member was not in <em>The Avengers</em> (2012)?",
@@ -72,7 +78,8 @@ $(document).ready(function() {
 		}, {
 			question: "Which Shakespeare play did Joss Whedon direct and produce in 2012?",
 			answers: ["Much Ado About Nothing", "A Midsummer Night’s Dream", "Twelfth Night", "The Taming of the Shrew"],
-			pic: 'assets/images/muchadoaboutnothing.gif',
+			picright: 'assets/images/muchadoaboutnothingright.gif',
+			picwrong: 'assets/images/muchadoaboutnothingwrong.gif',
 			correctanswer: 0
 		}, {
 			question: "How many times did Buffy die in <em>Buffy the Vampire Slayer</em>?",
@@ -127,7 +134,7 @@ $(document).ready(function() {
 		$('#time').empty();
 		$('#question').html("<h2>Correct!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
-		$('#gifHolder').show().html("<img class='gifs' src=" + qaArray[currentIndex].pic + ">");
+		$('#gifHolder').show().html("<img class='gifs' src=" + qaArray[currentIndex].picright + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
@@ -141,7 +148,7 @@ $(document).ready(function() {
 		$('#question').html("<h2>Nope!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
-			"<br><img class='gifs' src=" + qaArray[currentIndex].pic + ">");
+			"<br><img class='gifs' src=" + qaArray[currentIndex].picwrong + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
@@ -155,7 +162,7 @@ $(document).ready(function() {
 		$('#question').html("<h2>Time's Up!</h2>");
 		$('#answer0, #answer1, #answer2, #answer3').hide().off('click');
 		$('#gifHolder').show().html("The correct answer was: " + qaArray[currentIndex].answers[qaArray[currentIndex].correctanswer] +
-			"<br><img class='gifs' src=" + qaArray[currentIndex].pic + ">");
+			"<br><img class='gifs' src=" + qaArray[currentIndex].picwrong + ">");
 
 		timeIsUp = setTimeout(advance, 5 * 1000);
 	}
