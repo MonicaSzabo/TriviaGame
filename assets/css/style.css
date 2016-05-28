@@ -1,7 +1,10 @@
 * {
 	font-family: 'Ubuntu', sans-serif;
-	background-image: url('../images/tweed.png');
 	color: #BCFEFF;
+}
+
+body {
+	background-image: url('../images/tweed.png');
 }
 
 .btn {
@@ -31,4 +34,12 @@ h1 {
 
 #gifHolder {
 	margin-top: -60px;
+}
+
+.container-fluid {
+	background: rgb(105, 105, 105);
+	background: rgba(105, 105, 105, .5);
+	width: 600px;
+	margin-top: 50px;
+	padding-bottom: 20px;
 }
